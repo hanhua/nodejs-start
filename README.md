@@ -1,0 +1,35 @@
+# Create NodeJS React App with server, deployable on Azure
+
+The starter project for an React app with both client and server code.
+
+## Versions ahd layout
+
+The planned version we are installing are as following:
+
+- NodeJS 18 (18.16.0)
+- React 18
+- React Router
+- Babel 7
+- Webpack 5
+- TypeScript 5
+- Express 6
+- MUI 5
+- ESLint
+
+The planned directory layout
+
+- `assets`: Static files, HTML/CSS/images not imported to TSX
+- `client`: Client code (React/JSX/TSX)
+- `server`: Server code (Express/JS/TS)
+- `mutual`: Shared code (TS)
+- `dist`: Compilation output for disttribution (git ignored)
+
+## Steps
+
+1. First install `nodejs` and `npm` in the operating system.
+   In the rest of this memo, we assume Linux.
+
+2. Create a project directory and run `npm init -y` there to create an initial
+   `package.json`.
+
+
