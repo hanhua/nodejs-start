@@ -29,7 +29,9 @@ app.use('/', (req, res, next) => {
     res.sendFile(index_html);
 });
 
-const port = process.env.SERVER_PORT || process.env.PORT || 3000;
+const port = process.env.SERVER_PORT || process.env.PORT || (
+    process.env.NODE_ENV === 'production' ? 8080 : 3000
+);
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
 });

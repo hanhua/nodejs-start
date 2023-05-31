@@ -7,13 +7,12 @@ The starter project for an NodeJS React app with both client and server code.
 The planned version we are installing are as following:
 
 - NodeJS 18 (18.16.0)
-- React 18
-- React Router
-- Babel 7
-- Webpack 5
-- TypeScript 5
-- Express 6
-- MUI 5
+- React 18 (18.2.0)
+- React Router 6 (6.11.2)
+- Babel 7 (7.22.1)
+- Webpack 5 (5.84.1)
+- TypeScript 5 (5.0.4)
+- Express 4 (4.18.2)
 - ESLint
 
 The planned directory layout
@@ -119,3 +118,36 @@ The planned directory layout
     will proxy all `/api` to the server. Then connecting the webpack-dev-server
     port CLIENT_PORT (8085). Then client is refreshed after update but the
     server is not.
+
+10. Install some execution helper packages for scripts:
+
+    npm install --save-dev rimraf concurrently cross-env tsc-watch dotenv
+
+    Short explanation for thse packages:
+    - `rimraf` to delete a directory run to implement `clean` script;
+    - `concurrently` to run multiple commmands in parallel in a
+      platform-independent way;
+    - `cross-env` to set environment variable in command-line in a
+      platform-independent way;
+    - `tsc-watch` to call tsc on any source file change;
+    - `dotenv` to run command using the environment variables set in `.env`.
+
+    Then the scripts part of `package.json` becomes:
+
+        "build-client": "webpack --config webpack.config.js --mode production",
+        "build-server": "tsc -b ./server",
+        "build": "concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run build-server\" \"npm run build-client\"",
+        "check": "tsc -b client",
+        "clean": "rimraf dist",
+        "dev-client": "webpack-dev-server --port 8085 --open",
+        "dev-server": "tsc-watch --noClear -b ./server/tsconfig.json --onSuccess \"node -r dotenv/config --enable-source-maps index.js\"",
+        "dev": "concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev-server\" \"npm run dev-client\"",
+        "start": "node -r dotenv/config index.js",
+        "start:prod": "cross-env NODE_ENV=production node index.js"
+
+    The file `webpack.config.js` is modified to load `dotenv.config()`.
+    Note that webpack ony called in dev mode. Also modified `server/index.ts`
+    to check `NODE_ENV` if it is in production mode; we use default port
+    of 8080 in production mode,but the env `SERVER_PORT` always takes
+    precedence.
+

@@ -1,13 +1,17 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
-const CLIENT_PORT = process.env.CLIENT_PORT;
-const SERVER_PORT = process.env.SERVER_PORT || 3000;
+require('dotenv').config();
+
+const is_dev_mode = process.env.NODE_ENV !== 'production';
+const CLIENT_PORT = process.env.CLIENT_PORT || 8085; // DEV MODE ONLY
+const SERVER_PORT = process.env.SERVER_PORT || 3000; // DEV MODE ONLY
 
 module.exports = {
     entry: "./client/index.tsx",
-    mode: "development",
-    devtool: 'inline-source-map',
+    mode: (is_dev_mode ? "development" : "production"),
+    devtool: is_dev_mode && 'inline-source-map',
     output: {
         filename: "bundle.[fullhash].js",
         path: path.resolve(__dirname, "dist", "client"),
@@ -15,6 +19,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./assets/index.html",
+        }),
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify
         })
     ],
     resolve: {
