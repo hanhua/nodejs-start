@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        // tsc will do type checking only, not to generate code
+        "noEmit": true,
+        // Mpdule aconfigurations
+        "module": "ESNext",
+        "moduleResolution": "node",
+        // Language configuration
+        "target": "ES2022",
+        "jsx": "react-jsx",
+        // Interop constraints
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        // Other type checking flags here to be added in the future
+        // Library and output directory (may not be effective)
+        "lib": ["ES2019", "DOM"],
+        "outDir": "../dist/client"
+    },
+    "include": ["**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+}

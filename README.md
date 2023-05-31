@@ -54,3 +54,23 @@ The planned directory layout
 
         npm install --save-dev @babel/preset-typescript typescript \
             @types/react @types/react-dom
+
+6. Do the following modifications:
+
+    - Adding `"@babel/preset-typescript"` to tne end of `presets` section
+      in `babel.config.json`.
+    - Changing `entry: "./client/index.js",` to `entry: "./client/index.tsx",`
+      in `webpack.config.js`.
+    - Changing `test: /\.jsx?$/,` to `test: /\.(jsx?|tsx?)$/,`
+      in `webpack.config.js`.
+    - Renaming `App.js` and `index.js` to `App.tsx` and `index.tsx`,
+      respectively, and fixing grammar issues by `import React from 'react';`
+      in both of them.
+    - Addomg `"check": "tsc -b client"` to the end of `scripts` section
+      in `package.json`.
+
+   Now run all three scripts to verify the changes works.
+
+
+
+
