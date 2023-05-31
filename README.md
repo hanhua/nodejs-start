@@ -39,3 +39,13 @@ The planned directory layout
         webpack webpack-cli webpack-dev-server html-webpack-plugin \
         babel-loader style-loader css-loader file-loader
 
+4. Create `babel.config.json`, `webpack.config.js`, `assets/index.html`,
+  `client/App.js`, `client/index.js`, and add the following lines to
+   the `scripts` section of `package.json`:
+
+        "start": "webpack serve --open",
+        "build": "webpack --config webpack.config.js --mode production"
+
+    Try `npm run build` and `npm run start` to start the "Hello, World!"
+    JavaScript App. It should show up in a browser.
+
