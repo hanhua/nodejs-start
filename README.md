@@ -32,4 +32,10 @@ The planned directory layout
 2. Create a project directory and run `npm init -y` there to create an initial
    `package.json`.
 
+3. Install React, Babel, Webpack, and Webpack loaders
+
+    npm install --save-dev react react-dom react-router react-router-dom \
+        @babel/core @babel/preset-env @babel/preset-react \
+        webpack webpack-cli webpack-dev-server html-webpack-plugin \
+        babel-loader style-loader css-loader file-loader
 
