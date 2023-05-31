@@ -53,7 +53,7 @@ The planned directory layout
    actual compilation.
 
         npm install --save-dev @babel/preset-typescript typescript \
-            @types/react @types/react-dom
+            @types/react @types/react-dom @types/react-router @types/react-router-dom
 
 6. Do the following modifications:
 
