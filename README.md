@@ -71,6 +71,9 @@ The planned directory layout
 
    Now run all three scripts to verify the changes works.
 
+7. Adding some code to see if recent EcmaScript features can be compiled and
+   executed. (e.g., From ES2017 to ES2020).
+
 
 
 

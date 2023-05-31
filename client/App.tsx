@@ -1,9 +1,14 @@
 import React from "react";
 
-const App = () => (
-    <div>
-        <h1>Hello, World!</h1>
-    </div>
-);
+import FeatureTest from './FeatureTest';
+
+const App: React.FC = () => {
+    return (
+        <div>
+            <h1>Hello, World!</h1>
+            <FeatureTest />
+        </div>
+    );
+}
 
 export default App;
