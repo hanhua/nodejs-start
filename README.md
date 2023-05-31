@@ -74,6 +74,11 @@ The planned directory layout
 7. Adding some code to see if recent EcmaScript features can be compiled and
    executed. (e.g., From ES2017 to ES2020).
 
+8. Install Express and axios
 
+        npm install --save express body-parser axios
+        npm install --save-dev @types/express @types/node
 
+   Note that `axios` is for client here but it can be used for server so it
+   belongs to dependencies not dev dependencies.
 
