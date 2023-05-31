@@ -1,6 +1,6 @@
 # Create NodeJS React App with server, deployable on Azure
 
-The starter project for an React app with both client and server code.
+The starter project for an NodeJS React app with both client and server code.
 
 ## Versions ahd layout
 
