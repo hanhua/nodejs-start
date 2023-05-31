@@ -81,4 +81,41 @@ The planned directory layout
 
    Note that `axios` is for client here but it can be used for server so it
    belongs to dependencies not dev dependencies.
+9. Adding some code:
 
+    - `index.js`: The entry for express server, which just calls
+      `dist/server/index.js`.
+    - `server/index.ts`: the main express server code, which compiles
+       into `dist/server/index.js`. It serves on SERVER_PORT (3000 default)
+       and do the following routings:
+       + `/assets/*` to `assets` directory; do not fall through for missing
+        files.
+       + `/api/*` to one of the routers in `server/routes`; currently
+         only serves `/api/health` which returns a json object `{ok: true}`.
+         If there is no route for a particular API, returns 404.
+       + Serves all existing files under `dist/client/*` as  `/*`.
+       + For missing files, serve `dist/client/index.html`.
+    - `server/tsconfig.ts`: the compiler options and directory definition
+      of server code compilation.
+    - `server/routes/health-router.ts`: serves `/api/health`.
+    - `webport.config.js` changes:
+       + Compile client code to `dist/client` instead;
+       + It runs on envvar CLIENT_PORT (default: 8085);
+       + For webport-dev-server: add a proxy for `/api/` to the express
+         server port on envvar SERVER_PORT (default: 3000).
+
+   Also, we had Changed `scripts` section as follows:
+
+        "dev-client": "webpack-dev-server --port 8085 --open",
+        "build-client": "webpack --config webpack.config.js --mode production",
+        "build-server": "tsc -b ./server",
+        "start": "node index.js",
+        "check": "tsc -b client"
+
+    Now one needs to do `npm run build-server` then run `npm run start` to
+    run the server on SERVER_PORT (3000). The server serves all client static
+    files if `npm run build-client` had ben run previously.
+    Afterwards, it can run webpack-dev-server by `npm run dev-client` which
+    will proxy all `/api` to the server. Then connecting the webpack-dev-server
+    port CLIENT_PORT (8085). Then client is refreshed after update but the
+    server is not.

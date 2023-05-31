@@ -1,12 +1,16 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+const CLIENT_PORT = process.env.CLIENT_PORT;
+const SERVER_PORT = process.env.SERVER_PORT || 3000;
+
 module.exports = {
     entry: "./client/index.tsx",
     mode: "development",
+    devtool: 'inline-source-map',
     output: {
         filename: "bundle.[fullhash].js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "dist", "client"),
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -31,5 +35,12 @@ module.exports = {
             exclude: /node_modules/,
             use: ["file-loader"],
         }]
+    },
+    devServer: {
+        port: CLIENT_PORT,
+        proxy: {
+            '/api': `http://localhost:${SERVER_PORT}`,
+            '/assets': `http://localhost:${SERVER_PORT}`
+        }
     }
 };
