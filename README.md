@@ -34,10 +34,10 @@ The planned directory layout
 
 3. Install React, Babel, Webpack, and Webpack loaders
 
-    npm install --save-dev react react-dom react-router react-router-dom \
-        @babel/core @babel/preset-env @babel/preset-react \
-        webpack webpack-cli webpack-dev-server html-webpack-plugin \
-        babel-loader style-loader css-loader file-loader
+        npm install --save-dev react react-dom react-router react-router-dom \
+            @babel/core @babel/preset-env @babel/preset-react \
+            webpack webpack-cli webpack-dev-server html-webpack-plugin \
+            babel-loader style-loader css-loader file-loader
 
 4. Create `babel.config.json`, `webpack.config.js`, `assets/index.html`,
   `client/App.js`, `client/index.js`, and add the following lines to
@@ -49,3 +49,8 @@ The planned directory layout
     Try `npm run build` and `npm run start` to start the "Hello, World!"
     JavaScript App. It should show up in a browser.
 
+5. Install TypeScript for type-checking only, and Babel packages for the
+   actual compilation.
+
+        npm install --save-dev @babel/preset-typescript typescript \
+            @types/react @types/react-dom
