@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const path = require('path');
@@ -13,7 +12,7 @@ module.exports = {
     mode: (is_dev_mode ? "development" : "production"),
     devtool: is_dev_mode && 'inline-source-map',
     output: {
-        filename: "bundle.[fullhash].js",
+        filename: "[name]-[fullhash]-bundle.js",
         path: path.resolve(__dirname, "dist", "client"),
     },
     plugins: [
@@ -25,6 +24,9 @@ module.exports = {
     resolve: {
         modules: [__dirname, "client", "node_modules"],
         extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+    },
+    optimization: {
+        minimize: ! is_dev_mode,
     },
     module: {
         rules: [{
