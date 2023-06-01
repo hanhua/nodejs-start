@@ -166,3 +166,6 @@ The planned directory layout
       Add the component in `client/App.ts`.
     - Run the test both in dev mode and production mode to make sure it works.
 
+12. Install ESLint
+
+    Run `npx eslint --init` and follow the instructions.

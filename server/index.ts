@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 
@@ -27,7 +27,7 @@ app.use('/api', (req, res) => {
 const client_dir = path.join(cwd, "dist", "client");
 const index_html = path.join(client_dir, "index.html");
 app.use('/', express.static(client_dir, {fallthrough: true}));
-app.use('/', (req, res, next) => {
+app.use('/', (req, res) => {
     res.sendFile(index_html);
 });
 

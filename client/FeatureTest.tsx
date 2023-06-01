@@ -3,10 +3,6 @@ import React from "react";
 import { test_data, test_func } from '../mutual/es-feature-test';
 import axios from "axios";
 
-function removeEmptyData(data: Record<string,any>) {
-    return Object.fromEntries(Object.entries(data).filter(([k,v]) => v != null));
-}
-
 const FeatureTest: React.FC = () => {
     const [state, setState] = React.useState(null);
     const [error, setError] = React.useState(null);
