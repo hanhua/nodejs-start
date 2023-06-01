@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
 const path = require('path');
-
-require('dotenv').config();
 
 const is_dev_mode = process.env.NODE_ENV !== 'production';
 const CLIENT_PORT = process.env.CLIENT_PORT || 8085; // DEV MODE ONLY
@@ -21,9 +20,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "./assets/index.html",
         }),
-        new webpack.DefinePlugin({
-            'process.env': JSON.stringify
-        })
+        new DotenvPlugin(),
     ],
     resolve: {
         modules: [__dirname, "client", "node_modules"],

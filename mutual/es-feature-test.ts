@@ -12,7 +12,9 @@ function shallowEqual(obj1: Record<string,number>, obj2: Record<string,number>):
      return true;
 }
 
-function arrayShallowEqual(arr1: number[], arr2: number[]): boolean {
+type Primitive = (number|string|boolean|null);
+
+function arrayShallowEqual(arr1: Primitive[], arr2: Primitive[]): boolean {
     return arr1.length == arr2.length && arr1.findIndex((x, i) => x !== arr2[i]) < 0;
 }
 
@@ -25,19 +27,19 @@ function testES2018(obj1: Record<string,number>, obj2: Record<string,number>): b
     return shallowEqual({c: 3, ...obj1}, obj2);
 }
 
-function testES2019(arr1: number[], arr2: number[]): boolean {
+function testES2019(arr1: (number|(number|number[])[])[], arr2: number[]): boolean {
     return arrayShallowEqual(arr1.flat(2), arr2);
 }
 
-function testES2020(arr1: boolean[], arr2: boolean[]): boolean {
+function testES2020(arr1: Primitive[], arr2: Primitive[]): boolean {
     return arrayShallowEqual(arr1.map(x => x ?? "other"), arr2);
 }
 
 type TestDataDTO = {
     ES2017: [Record<string,number>,Record<string,number>];
     ES2018: [Record<string,number>,Record<string,number>];
-    ES2019: [(number|(nunber|number[])[])[],number[]];
-    ES2020: [(null|boolean|string)[],boolean[]];
+    ES2019: [(number|(number|number[])[])[],number[]];
+    ES2020: [Primitive[],Primitive[]];
 };
 
 export const test_data: TestDataDTO = {
