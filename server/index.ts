@@ -3,6 +3,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 
 import healthRouter from './routes/health-router';
+import testerRouter from './routes/tester-router';
 
 console.log("================================");
 console.log(`NODE_ENV=${process.env.NODE_ENV ?? "(undefined)"}`);
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 /* BEGIN of API handling */
 app.use(healthRouter());
+app.use(testerRouter());
 /* End of API handling */
 // All other /api will return 404
 app.use('/api', (req, res) => {

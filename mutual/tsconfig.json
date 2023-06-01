@@ -17,13 +17,12 @@
         "declaration": true,
         "importHelpers": true,
         "skipLibCheck": true,
+        "outDir": "../dist/mutual",
         "lib": ["ES2019"],
         "types": ["node"],
         "incremental": true,
-        // Output
-        "outDir": "../dist/server",
+        "composite": true
     },
     "include": ["**/*.ts"],
-    "exclude": ["**/*.test.ts"],
-    "references": [{"path": "../mutual"}]
+    "exclude": ["**/*.test.ts"]
 }

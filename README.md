@@ -151,3 +151,18 @@ The planned directory layout
     of 8080 in production mode,but the env `SERVER_PORT` always takes
     precedence.
 
+11. Shared code between client & server and DTOs
+
+    - Create `tsconfig.json` in `mutual` to be compiled to `../dist/mutual`.
+    - Update `tsconfig.json` in both `client` and `source` with a line
+      `"references": [{"path": "../mutual"}]` at the end.
+    - Add some shared library `mutual/es-feature-test.ts` to set ES2017-ES2020
+      features.
+    - Create a route `server/routes/tester-router.ts` on `/api/tester` to run
+      the test using received post data, and then send the result back.
+      Add the route in `server/index.ts`.
+    - Create an React component `FeatureTest.tsx` to run test both locally and
+      cal server's `/api/tester` and show results in the React component.
+      Add the component in `client/App.ts`.
+    - Run the test both in dev mode and production mode to make sure it works.
+
