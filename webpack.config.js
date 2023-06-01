@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const path = require('path');
 
 const is_dev_mode = process.env.NODE_ENV !== 'production';
@@ -20,6 +21,7 @@ module.exports = {
             template: "./assets/index.html",
         }),
         new DotenvPlugin(),
+        // new BundleAnalyzerPlugin(),
     ],
     resolve: {
         modules: [__dirname, "client", "node_modules"],
