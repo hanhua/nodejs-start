@@ -194,4 +194,7 @@ The planned directory layout
     `@babel/plugin-transform-runtime` with `corejs` set to 3 seems to
     increase the bundle size a lot, so I am not using it.
 
-
+15. Modifying the `webpack.config.js` to split the bundle into different
+    chunks by category. Right now, axios and react packages are in
+    their own chunks, and all other third party are in vendors chunk.
+    Only our own code is in the main chunk.

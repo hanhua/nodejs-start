@@ -4,7 +4,7 @@
   "description": "The starter project for an NodeJS React app with both client and server code.",
   "main": "index.js",
   "scripts": {
-    "build-client": "webpack --config webpack.config.js --mode production",
+    "build-client": "cross-env NODE_ENV=production webpack --config webpack.config.js --mode production",
     "build-server": "tsc -b ./server",
     "build": "concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run build-server\" \"npm run build-client\"",
     "check": "tsc -b client",

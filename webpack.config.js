@@ -1,12 +1,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const path = require('path');
 
 const is_dev_mode = process.env.NODE_ENV !== 'production';
 const CLIENT_PORT = process.env.CLIENT_PORT || 8085; // DEV MODE ONLY
 const SERVER_PORT = process.env.SERVER_PORT || 3000; // DEV MODE ONLY
+
+const plugins = [
+    new HtmlWebpackPlugin({
+        template: "./assets/index.html",
+    }),
+    new DotenvPlugin(),
+];
+if (process.env.BUNDLE_ANALYZER) {
+    plugins.push(new BundleAnalyzerPlugin());
+}
+console.log(`NODE_ENV=${process.env.NODE_ENV ?? '(undefined)'} is_dev_mode=${is_dev_mode}`);
 
 module.exports = {
     entry: "./client/index.tsx",
@@ -14,21 +25,39 @@ module.exports = {
     devtool: is_dev_mode && 'inline-source-map',
     output: {
         filename: "[name]-[fullhash]-bundle.js",
+        chunkFilename: '[name]-[contenthash]-bundle.js',
         path: path.resolve(__dirname, "dist", "client"),
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./assets/index.html",
-        }),
-        new DotenvPlugin(),
-        // new BundleAnalyzerPlugin(),
-    ],
+    plugins,
     resolve: {
         modules: [__dirname, "client", "node_modules"],
         extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
     },
     optimization: {
         minimize: ! is_dev_mode,
+        splitChunks: {
+            minSize: 0,
+            cacheGroups: {
+                reactjs: {
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
+                    name: "reactjs",
+                    priority: 2,
+                    chunks: 'all',
+                },
+                axiosjs: {
+                    test: /[\\/]node_modules[\\/]axios[\\/]/,
+                    name: "axiosjs",
+                    priority: 2,
+                    chunks: 'all',
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    priority: 1,
+                    chunks: 'all',
+                },
+            },
+        },
     },
     module: {
         rules: [{
