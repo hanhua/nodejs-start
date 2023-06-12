@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const path = require('path');
@@ -8,12 +9,17 @@ const is_dev_mode = process.env.NODE_ENV !== 'production';
 const CLIENT_PORT = process.env.CLIENT_PORT || 8085; // DEV MODE ONLY
 const SERVER_PORT = process.env.SERVER_PORT || 3000; // DEV MODE ONLY
 
+
 const plugins = [
     new HtmlWebpackPlugin({
         template: "./assets/index.html",
     }),
     new DotenvPlugin(),
 ];
+if (is_dev_mode) {
+    // https://stackoverflow.com/questions/71719220/webpack-hot-module-replacement-react-18-reactdomclient-createroot-on-a-contai
+    plugins.unshift(new ReactRefreshPlugin())
+}
 if (process.env.BUNDLE_ANALYZER) {
     plugins.push(new BundleAnalyzerPlugin());
 }
@@ -27,11 +33,12 @@ module.exports = {
         filename: "[name]-[fullhash]-bundle.js",
         chunkFilename: '[name]-[contenthash]-bundle.js',
         path: path.resolve(__dirname, "dist", "client"),
+        publicPath: '/'
     },
     plugins,
     resolve: {
         modules: [__dirname, "client", "node_modules"],
-        extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+        extensions: [".js", ".jsx", ".tsx", ".ts"],
     },
     optimization: {
         minimize: ! is_dev_mode,
@@ -74,11 +81,14 @@ module.exports = {
             use: ["file-loader"],
         }]
     },
+    target: "web",
     devServer: {
+        client: { overlay: false },
         port: CLIENT_PORT,
+        historyApiFallback: true,
         proxy: {
             '/api': `http://localhost:${SERVER_PORT}`,
             '/assets': `http://localhost:${SERVER_PORT}`
-        }
+        },
     }
 };

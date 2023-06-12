@@ -198,3 +198,16 @@ The planned directory layout
     chunks by category. Right now, axios and react packages are in
     their own chunks, and all other third party are in vendors chunk.
     Only our own code is in the main chunk.
+
+16. Install React refresh to do hot partial refreshing for React project.
+    Install the following packages:
+
+        npm install -D @pmmmwh/react-refresh-webpack-plugin react-refresh
+
+    Add the following settings to `webpack.config.js`:
+
+        devServer: {
+            client: { overlay: false },
+        }
+
+    as well as a plugin: `new ReactRefreshPlugin()` only in development mode.
